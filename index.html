@@ -31,12 +31,12 @@
 
         .input_video { display: none; }
 
-        /* Modern UI Panel - Changed to LEFT SIDEBAR */
+        /* Modern UI Panel - LEFT SIDEBAR */
         .ui-panel {
             position: absolute;
             top: 50%;
             left: 30px;
-            transform: translateY(-50%); /* 垂直居中 */
+            transform: translateY(-50%);
             background: var(--panel-bg);
             padding: 30px 25px;
             border-radius: 24px;
@@ -45,14 +45,13 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             z-index: 100;
             display: flex;
-            flex-direction: column; /* 垂直排列 */
+            flex-direction: column; 
             gap: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 220px; /* 固定侧边栏宽度 */
+            width: 220px; 
         }
 
-        /* 隐藏侧边栏的动画：向左侧滑出 */
         .ui-panel.hidden {
             transform: translate(-150%, -50%);
             opacity: 0 !important;
@@ -61,23 +60,23 @@
 
         .controls-row {
             display: flex;
-            flex-direction: column; /* 按钮垂直堆叠 */
+            flex-direction: column; 
             gap: 15px;
             width: 100%;
         }
 
         button {
-            width: 100%; /* 按钮填满侧边栏 */
+            width: 100%; 
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 14px 20px;
-            border-radius: 16px; /* 侧边栏的按钮稍微方正一点更好看 */
+            border-radius: 16px; 
             cursor: pointer;
             font-size: 1.15rem; 
             letter-spacing: 1px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left; /* 文字靠左对齐 */
+            text-align: left; 
         }
 
         button:hover, button.active {
@@ -85,12 +84,12 @@
             color: #fff;
             border-color: var(--accent);
             box-shadow: 0 0 20px var(--accent);
-            transform: translateX(5px); /* 悬浮时向右微动，增强侧边栏的交互感 */
+            transform: translateX(5px); 
         }
 
         .color-picker-wrapper {
             display: flex;
-            flex-direction: column; /* 垂直排列颜色选择器 */
+            flex-direction: column; 
             align-items: flex-start;
             gap: 15px;
             font-size: 1.1rem; 
@@ -203,7 +202,6 @@
         }
         .status span { color: var(--accent); font-weight: bold; margin-left: 5px; }
 
-        /* Hide UI Toggle Button - 移到了左下角配合侧边栏 */
         .toggle-ui-btn {
             position: absolute;
             bottom: 30px;
@@ -224,19 +222,72 @@
             background: rgba(255,255,255,0.15);
         }
 
+        /* ========================================== */
+        /* MOBILE RESPONSIVE DESIGN (For Phones)      */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .card { padding: 30px 20px; }
+            #overlay h1 { font-size: 2.2rem; margin-bottom: 15px; }
+            #overlay p { font-size: 1rem; margin-bottom: 15px; }
+            .guidelines { font-size: 1rem; padding: 15px; margin-bottom: 25px; }
+            .start-btn { font-size: 1.2rem; padding: 12px 30px; }
+
+            .status { top: 15px; right: 15px; font-size: 0.85rem; padding: 10px 15px; }
+            .toggle-ui-btn { bottom: 15px; left: 15px; font-size: 0.9rem; padding: 10px 15px; }
+
+            .ui-panel {
+                top: auto;
+                bottom: 70px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                padding: 15px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .ui-panel.hidden {
+                transform: translate(-50%, 150px); 
+            }
+
+            .controls-row {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 5px;
+            }
+            
+            button {
+                width: auto;
+                white-space: nowrap;
+                font-size: 1rem;
+                padding: 10px 16px;
+            }
+
+            .color-picker-wrapper {
+                flex-direction: row;
+                justify-content: space-between;
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+        }
+
     </style>
 </head>
 <body>
 
+    <audio id="bgMusic" src="backgroundmusic.mp3" loop></audio>
+
     <div id="overlay">
         <div class="card">
             <h1>生日快乐，阿毛！🎂</h1>
-            <p>这是一份为你特别准备的魔法礼物。在开始之前，它需要借助你的<b>摄像头</b>和<b>麦克风</b>来感受你的动作与声音。</p>
+            <p>这是一份为你特别准备的魔法礼物。在开始之前，它需要借助你的<b>摄像头</b>来感受你的动作。</p>
             
             <div class="guidelines">
                 <li>✋ <b>张开或握紧双手</b>：控制粒子的散开与聚拢</li>
                 <li>👋 <b>在镜头前移动双手</b>：可以全方位旋转查看图形</li>
-                <li>🎤 <b>说点什么，或者放首歌</b>：粒子会跟随着声音的节奏跳动！</li>
+                <li>🎵 <b>打开声音</b>：伴随专属背景音乐，享受这场视觉盛宴！</li>
             </div>
 
             <button class="start-btn" id="startBtn">开启魔法空间</button>
@@ -245,7 +296,7 @@
     </div>
 
     <div class="status">
-        检测到手部: <span id="handStatus">0 只</span> &nbsp;|&nbsp; 声音感知: <span id="audioStatus">安静</span>
+        检测到手部: <span id="handStatus">0 只</span>
     </div>
 
     <button class="toggle-ui-btn" id="toggleUiBtn">👁️ 隐藏控制台</button>
@@ -286,13 +337,6 @@
         let smoothedTension = 0;
         let targetRotation = { x: 0, y: 0 };
         let currentRotation = { x: 0, y: 0 };
-
-        // Audio Variables
-        let audioContext, analyser, dataArray;
-        let audioVolume = 0;
-        let isBeat = false;
-        let beatTimer = 0;
-        let audioEnabled = false;
 
         // --- THREE.JS SETUP ---
         const scene = new THREE.Scene();
@@ -397,14 +441,10 @@
             });
 
             particles = new THREE.Points(geometry, material);
-            
-            // 将位置重置回正中央 0，因为侧边栏不再遮挡底部了！
             particles.position.y = 0; 
-            
             scene.add(particles);
         }
 
-        // Morph to a new shape
         function changeShape(shapeName) {
             const generator = Shapes[shapeName];
             for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -415,7 +455,6 @@
             }
         }
 
-        // Update particle colors
         function updateColors(hexColor) {
             const color = new THREE.Color(hexColor);
             const colorAttr = geometry.attributes.color;
@@ -427,53 +466,6 @@
             }
             colorAttr.needsUpdate = true;
             document.documentElement.style.setProperty('--accent', hexColor);
-        }
-
-        // ==========================================
-        // AUDIO PROCESSING
-        // ==========================================
-        async function initAudio() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-                const source = audioContext.createMediaStreamSource(stream);
-                source.connect(analyser);
-                dataArray = new Uint8Array(analyser.frequencyBinCount);
-                audioEnabled = true;
-            } catch (err) {
-                console.error("Audio access denied", err);
-                document.getElementById('audioStatus').innerText = "未开启";
-            }
-        }
-
-        function analyzeAudio() {
-            if (!audioEnabled) return;
-            analyser.getByteFrequencyData(dataArray);
-            
-            let sum = 0;
-            for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-            let rawVol = sum / dataArray.length;
-            audioVolume += ((rawVol / 255) - audioVolume) * 0.2; 
-
-            let bassSum = 0;
-            for (let i = 0; i < 8; i++) bassSum += dataArray[i];
-            let bass = bassSum / 8;
-
-            if (beatTimer > 0) beatTimer--;
-            if (bass > 200 && beatTimer === 0) {
-                isBeat = true;
-                beatTimer = 20; 
-                document.getElementById('audioStatus').innerText = "动次打次！🎵";
-                document.getElementById('audioStatus').style.color = "#fff";
-            } else {
-                isBeat = false;
-                if(beatTimer === 0) {
-                    document.getElementById('audioStatus').innerText = "倾听中...";
-                    document.getElementById('audioStatus').style.color = "var(--accent)";
-                }
-            }
         }
 
         // ==========================================
@@ -542,13 +534,17 @@
             btn.innerText = "正在连接魔法...";
             
             try {
+                // Play Background Music
+                const bgMusic = document.getElementById('bgMusic');
+                bgMusic.volume = 0.5; // Set volume to 50%
+                bgMusic.play().catch(e => console.log("音乐播放失败 (可能是浏览器自动播放限制):", e));
+
+                // Start Camera
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 videoElement.srcObject = stream;
                 await videoElement.play();
                 
                 await hands.send({ image: videoElement }); 
-
-                await initAudio();
 
                 const cameraUtils = new Camera(videoElement, {
                     onFrame: async () => { await hands.send({ image: videoElement }); },
@@ -556,6 +552,7 @@
                 });
                 cameraUtils.start();
 
+                // UI Transitions
                 document.getElementById('overlay').style.opacity = '0';
                 setTimeout(() => document.getElementById('overlay').style.display = 'none', 800);
                 
@@ -571,7 +568,7 @@
             } catch (err) {
                 console.error(err);
                 btn.innerText = "重试一次";
-                errorMsg.innerText = "哎呀！请确保允许浏览器使用摄像头和麦克风哦。";
+                errorMsg.innerText = "哎呀！请确保允许浏览器使用摄像头哦。";
                 errorMsg.style.display = 'block';
             }
         });
@@ -611,7 +608,6 @@
         // ==========================================
         function animate() {
             requestAnimationFrame(animate);
-            analyzeAudio();
 
             smoothedTension += (handTension - smoothedTension) * 0.1;
             currentRotation.x += (targetRotation.x - currentRotation.x) * 0.05;
@@ -623,12 +619,7 @@
                 if(smoothedTension === 0 && targetRotation.y === 0) particles.rotation.y += 0.003; 
 
                 const positions = particles.geometry.attributes.position.array;
-                
-                const tensionSpread = 1.0 + (smoothedTension * 1.5); 
-                const audioSpread = 1.0 + (audioVolume * 0.6);
-                const beatPop = isBeat ? 1.2 : 1.0;
-
-                const totalScale = tensionSpread * audioSpread * beatPop;
+                const totalScale = 1.0 + (smoothedTension * 1.5); 
 
                 for (let i = 0; i < PARTICLE_COUNT; i++) {
                     const idx = i * 3;
@@ -637,15 +628,12 @@
                     basePositions[idx+1] += (targetPositions[idx+1] - basePositions[idx+1]) * 0.04;
                     basePositions[idx+2] += (targetPositions[idx+2] - basePositions[idx+2]) * 0.04;
 
-                    const jitter = isBeat ? (Math.random() - 0.5) * 0.25 : 0;
-
-                    positions[idx] = (basePositions[idx] * totalScale) + jitter;
-                    positions[idx+1] = (basePositions[idx+1] * totalScale) + jitter;
-                    positions[idx+2] = (basePositions[idx+2] * totalScale) + jitter;
+                    positions[idx] = basePositions[idx] * totalScale;
+                    positions[idx+1] = basePositions[idx+1] * totalScale;
+                    positions[idx+2] = basePositions[idx+2] * totalScale;
                 }
                 
                 particles.geometry.attributes.position.needsUpdate = true;
-                particles.material.size = 0.10 + (audioVolume * 0.25) + (isBeat ? 0.15 : 0);
             }
 
             renderer.render(scene, camera);
