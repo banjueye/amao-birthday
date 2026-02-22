@@ -31,51 +31,53 @@
 
         .input_video { display: none; }
 
-        /* Modern UI Panel */
+        /* Modern UI Panel - Changed to LEFT SIDEBAR */
         .ui-panel {
             position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%); /* 垂直居中 */
             background: var(--panel-bg);
-            padding: 25px 40px;
+            padding: 30px 25px;
             border-radius: 24px;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             z-index: 100;
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            flex-direction: column; /* 垂直排列 */
+            gap: 30px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 220px; /* 固定侧边栏宽度 */
         }
 
-        /* Class to hide the panel smoothly */
+        /* 隐藏侧边栏的动画：向左侧滑出 */
         .ui-panel.hidden {
-            transform: translate(-50%, 150px);
+            transform: translate(-150%, -50%);
             opacity: 0 !important;
             pointer-events: none;
         }
 
         .controls-row {
             display: flex;
+            flex-direction: column; /* 按钮垂直堆叠 */
             gap: 15px;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
+            width: 100%;
         }
 
         button {
+            width: 100%; /* 按钮填满侧边栏 */
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
+            padding: 14px 20px;
+            border-radius: 16px; /* 侧边栏的按钮稍微方正一点更好看 */
             cursor: pointer;
-            font-size: 1.2rem; 
+            font-size: 1.15rem; 
             letter-spacing: 1px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left; /* 文字靠左对齐 */
         }
 
         button:hover, button.active {
@@ -83,31 +85,33 @@
             color: #fff;
             border-color: var(--accent);
             box-shadow: 0 0 20px var(--accent);
-            transform: translateY(-2px);
+            transform: translateX(5px); /* 悬浮时向右微动，增强侧边栏的交互感 */
         }
 
         .color-picker-wrapper {
             display: flex;
-            align-items: center;
+            flex-direction: column; /* 垂直排列颜色选择器 */
+            align-items: flex-start;
             gap: 15px;
-            font-size: 1.2rem; 
+            font-size: 1.1rem; 
             color: #ddd;
             background: rgba(0,0,0,0.3);
-            padding: 10px 25px;
-            border-radius: 30px;
+            padding: 20px 20px;
+            border-radius: 16px;
+            width: 100%;
         }
 
         input[type="color"] {
             -webkit-appearance: none;
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             background: transparent;
         }
         input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; box-shadow: 0 0 8px rgba(255,255,255,0.4); }
 
         /* Premium Overlay for Permissions */
         #overlay {
@@ -176,6 +180,7 @@
             letter-spacing: 1px;
             box-shadow: 0 0 25px rgba(255, 107, 129, 0.5);
             animation: pulse 2s infinite;
+            text-align: center;
         }
 
         @keyframes pulse {
@@ -198,23 +203,25 @@
         }
         .status span { color: var(--accent); font-weight: bold; margin-left: 5px; }
 
-        /* Hide UI Toggle Button */
+        /* Hide UI Toggle Button - 移到了左下角配合侧边栏 */
         .toggle-ui-btn {
             position: absolute;
             bottom: 30px;
-            right: 30px;
+            left: 30px;
             z-index: 105;
             background: rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.2);
             padding: 12px 20px;
-            font-size: 1rem;
-            opacity: 0; /* Hidden until started */
+            font-size: 1.1rem;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0; 
             pointer-events: none;
+            transition: all 0.3s ease;
         }
         .toggle-ui-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: none;
-            box-shadow: none;
+            background: rgba(255,255,255,0.15);
         }
 
     </style>
@@ -251,11 +258,9 @@
             <button class="shape-btn" data-shape="flower">🌸 绽放花朵</button>
             <button class="shape-btn" data-shape="saturn">🪐 浩瀚星空</button>
         </div>
-        <div class="controls-row">
-            <div class="color-picker-wrapper">
-                <span>换个你喜欢的颜色吧：</span>
-                <input type="color" id="colorPicker" value="#ff6b81">
-            </div>
+        <div class="color-picker-wrapper">
+            <span>🎨 粒子颜色：</span>
+            <input type="color" id="colorPicker" value="#ff6b81">
         </div>
     </div>
     
@@ -393,8 +398,8 @@
 
             particles = new THREE.Points(geometry, material);
             
-            // FIX: Shifting the 3D model UP slightly so it doesn't get blocked by the UI
-            particles.position.y = 1.2; 
+            // 将位置重置回正中央 0，因为侧边栏不再遮挡底部了！
+            particles.position.y = 0; 
             
             scene.add(particles);
         }
@@ -557,7 +562,6 @@
                 document.getElementById('uiPanel').style.opacity = '1';
                 document.getElementById('uiPanel').style.pointerEvents = 'all';
                 
-                // Show the hide button
                 document.getElementById('toggleUiBtn').style.opacity = '1';
                 document.getElementById('toggleUiBtn').style.pointerEvents = 'all';
 
