@@ -8,7 +8,7 @@
         :root {
             --bg-color: #050505;
             --panel-bg: rgba(20, 20, 25, 0.7);
-            --accent: #ff6b81; 
+            --accent: #ff6b81; /* Changed default accent to a warm birthday pink/red */
             --text: #ffffff;
         }
 
@@ -18,6 +18,7 @@
             margin: 0;
             overflow: hidden;
             background: var(--bg-color);
+            /* Best fonts for modern Chinese UI */
             font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif;
             color: var(--text);
         }
@@ -38,7 +39,7 @@
             left: 50%;
             transform: translateX(-50%);
             background: var(--panel-bg);
-            padding: 25px 40px;
+            padding: 20px 35px;
             border-radius: 24px;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -46,14 +47,14 @@
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 18px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             transition: opacity 0.8s ease-in-out;
         }
 
         .controls-row {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
@@ -63,10 +64,10 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.2rem; /* INCREASED text size */
+            font-size: 0.95rem;
             letter-spacing: 1px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -82,11 +83,11 @@
         .color-picker-wrapper {
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 1.2rem; /* INCREASED text size */
+            gap: 12px;
+            font-size: 1rem;
             color: #ddd;
             background: rgba(0,0,0,0.3);
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 30px;
         }
 
@@ -94,8 +95,8 @@
             appearance: none;
             -webkit-appearance: none;
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
             background: transparent;
@@ -120,48 +121,47 @@
 
         .card {
             background: rgba(255, 255, 255, 0.03);
-            padding: 60px;
+            padding: 50px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            max-width: 800px;
+            max-width: 650px;
         }
 
         #overlay h1 { 
-            margin-bottom: 30px; 
-            font-size: 3.5rem; /* INCREASED text size */
+            margin-bottom: 25px; 
+            font-size: 2.8rem; 
             color: var(--accent); 
             text-shadow: 0 0 20px rgba(255, 107, 129, 0.4);
             letter-spacing: 2px;
         }
         
         #overlay p { 
-            margin-bottom: 25px; 
+            margin-bottom: 20px; 
             line-height: 1.8; 
             color: #e0e0e0; 
-            font-size: 1.3rem; /* INCREASED text size */
+            font-size: 1.1rem;
         }
 
         .guidelines {
             text-align: left;
             background: rgba(0,0,0,0.3);
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
-            margin-bottom: 40px;
-            font-size: 1.25rem; /* INCREASED text size */
+            margin-bottom: 35px;
         }
 
         .guidelines li {
             list-style: none;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .start-btn {
-            padding: 18px 50px;
-            font-size: 1.5rem; /* INCREASED text size */
+            padding: 16px 45px;
+            font-size: 1.2rem;
             background: var(--accent);
             color: #fff;
             border: none;
@@ -182,9 +182,9 @@
             position: absolute;
             top: 25px; right: 25px;
             background: rgba(0,0,0,0.4);
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 30px;
-            font-size: 1.1rem; /* INCREASED text size */
+            font-size: 0.9rem;
             z-index: 100;
             color: #bbb;
             border: 1px solid rgba(255,255,255,0.08);
@@ -207,7 +207,7 @@
             </div>
 
             <button class="start-btn" id="startBtn">开启魔法空间</button>
-            <p id="errorMsg" style="color: #ff6b81; margin-top: 20px; display: none; font-size: 1.1rem;"></p>
+            <p id="errorMsg" style="color: #ff6b81; margin-top: 20px; display: none; font-size: 0.9rem;"></p>
         </div>
     </div>
 
